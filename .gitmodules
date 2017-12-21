@@ -1,0 +1,3 @@
+[submodule "A/wik-devops-3tp"]
+	path = A/wik-devops-3tp
+	url = https://github.com/Tronix117/wik-devops-3tp.git

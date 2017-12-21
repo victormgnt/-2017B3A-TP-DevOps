@@ -1,0 +1,30 @@
+version: '3'
+
+networks:
+  back:
+  
+services:
+  homecolis-api:
+    image: homecolis-api:latest
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+      - MONGO_USER=root
+      - MONGO_PASSWORD=123456
+    ports:
+      - 80:8080
+    networks:
+      - back
+    depends_on:
+      - mongodb
+      
+  mongodb:
+    image: 'bitnami/mongodb:latest'
+    environment:
+      - MONGODB_ROOT_PASSWORD=123456
+    volumes:
+      - ./data-db:/bitnami
+    networks:
+      - back
