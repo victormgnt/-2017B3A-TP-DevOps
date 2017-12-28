@@ -7,24 +7,30 @@ services:
   homecolis-api:
     image: homecolis-api:latest
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=8080
-      - MONGO_HOST=mongodb
+      - MONGO_HOST=db
       - MONGO_PORT=27017
-      - MONGO_USER=root
+      - MONGO_USER=yolo
       - MONGO_PASSWORD=123456
+    command: mongod
     ports:
       - 80:8080
     networks:
       - back
     depends_on:
-      - mongodb
+      - db
       
-  mongodb:
-    image: 'bitnami/mongodb:latest'
+  db:
+    image: aashreys/mongo-auth:latest
     environment:
-      - MONGODB_ROOT_PASSWORD=123456
+      - AUTH=yes
+      - MONGODB_ADMIN_USER=root
+      - MONGODB_ADMIN_PASS=123456
+      - MONGODB_APPLICATION_DATABASE=test
+      - MONGODB_APPLICATION_USER=yolo
+      - MONGODB_APPLICATION_PASS=123456
     volumes:
-      - ./data-db:/bitnami
+      - ./data-db:/data/db
     networks:
       - back
