@@ -28,11 +28,9 @@
      
      
 - name: Setup Docker Swarm 
-  hosts: docker_swarm_manager
+  hosts: ['docker_engine', 'docker_swarm_manager', 'docker_swarm_worker']
   remote_user: ubuntu
   ignore_errors: true
   become: true
   roles: 
    - atosatto.docker-swarm
-  vars:
-     mongodb_security_authorization: "enabled"
