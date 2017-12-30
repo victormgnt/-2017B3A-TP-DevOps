@@ -4,5 +4,3 @@ Membres du groupe :
   Victor M.
   Arnaud P.
   Enzo S.
-
-Manuel :
