@@ -1,0 +1,38 @@
+---
+- name: Setup and start mongodb
+  hosts: mongo
+  remote_user: ubuntu
+  ignore_errors: true
+  become: true
+  roles: 
+   - greendayonfire.mongodb
+  vars:
+     mongodb_security_authorization: "enabled"
+     mongodb_net_bindip: 0.0.0.0
+     mongodb_net_port: 27017
+     mongodb_users:
+       - {
+           name: yolo,
+           password: 123456,
+           roles: root,
+           database: test
+         }
+     mongodb_login_host: mongo-master
+     mongodb_replication_params:
+       - { host_name: mongo-slave, host_port: "{{ mongodb_net_port }}", host_type: replica }  
+     mongodb_user_admin_name: admin
+     mongodb_user_admin_password: passw0rd
+     mongodb_root_admin_name: root
+     mongodb_root_admin_password: passw0rd
+     
+     
+     
+- name: Setup Docker Swarm 
+  hosts: docker_swarm_manager
+  remote_user: ubuntu
+  ignore_errors: true
+  become: true
+  roles: 
+   - atosatto.docker-swarm
+  vars:
+     mongodb_security_authorization: "enabled"
